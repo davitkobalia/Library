@@ -7,6 +7,16 @@ CREATE TABLE IF NOT EXISTS role (
                                     name VARCHAR(255) NOT NULL UNIQUE
 );
 
+CREATE TABLE IF NOT EXISTS patrons (
+                                       id INT AUTO_INCREMENT PRIMARY KEY,
+                                       name VARCHAR(255),
+                                       surname VARCHAR(255),
+                                       email VARCHAR(255),
+                                       phone_number VARCHAR(255),
+                                       status BOOLEAN DEFAULT FALSE
+);
+
+
 CREATE TABLE IF NOT EXISTS user (
                                     id BIGINT AUTO_INCREMENT PRIMARY KEY,
                                     username VARCHAR(255) NOT NULL UNIQUE,
@@ -26,7 +36,7 @@ CREATE TABLE IF NOT EXISTS books (
                                      FOREIGN KEY (patron_id) REFERENCES patrons(id)
 );
 
-CREATE TABLE IF NOT EXISTS loans (
+CREATE TABLE IF NOT EXISTS loan (
                                      id INT AUTO_INCREMENT PRIMARY KEY,
                                      book_id INT,
                                      patron_id INT,
@@ -36,20 +46,11 @@ CREATE TABLE IF NOT EXISTS loans (
                                      FOREIGN KEY (patron_id) REFERENCES patrons(id)
 );
 
-CREATE TABLE IF NOT EXISTS patrons (
-                                       id INT AUTO_INCREMENT PRIMARY KEY,
-                                       name VARCHAR(255),
-                                       surname VARCHAR(255),
-                                       email VARCHAR(255),
-                                       phoneNumber VARCHAR(255),
-                                       membershipStatus BOOLEAN DEFAULT FALSE
-);
-
 CREATE TABLE IF NOT EXISTS transactions (
                                             id INT AUTO_INCREMENT PRIMARY KEY,
                                             name VARCHAR(255),
                                             surname VARCHAR(255),
                                             title VARCHAR(255),
                                             author VARCHAR(255),
-                                            transactionType VARCHAR(255)
+                                            transaction_type VARCHAR(255)
 );

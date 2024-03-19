@@ -23,9 +23,9 @@ public class Patron {
     private String surname;
     @Column(name = "email")
     private String email;
-    @Column(name = "phoneNumber")
+    @Column(name = "phone_number")
     private String phoneNumber;
-    @Column(name = "Status")
+    @Column(name = "status")
     private boolean membershipStatus=false;
     @OneToMany(mappedBy = "patron")
     private List<Book> books;

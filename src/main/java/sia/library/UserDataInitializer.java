@@ -29,16 +29,20 @@ public class UserDataInitializer implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+        if (roleRepository.findAll().isEmpty()) {
+            roleRepository.save(new Role("ADMIN"));
+            roleRepository.save(new Role("LIBRARIAN"));
+        }
+
+
+
         if (userRepository.findAll().isEmpty()) {
             userRepository.save(new User("admin",
                     "$2a$12$31Lle2EsxWajkkxR9w3CLe9oZUI9Ym4T7ceY8kKmsa7InmgC7gwIC",
                     "ADMIN"));
         }
 
-        if (roleRepository.findAll().isEmpty()) {
-            roleRepository.save(new Role("ADMIN"));
-            roleRepository.save(new Role("LIBRARIAN"));
-        }
+
 
         if (bookRepository.findAll().isEmpty()) {
             bookRepository.save(new Book("To Kill a Mockingbird", "Harper Lee", "978-0-06-112008-4", "Fiction",false));
