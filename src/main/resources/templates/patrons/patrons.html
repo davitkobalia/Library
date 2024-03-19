@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Patron list</title>
+    <link rel="stylesheet" th:href="@{static/main.css}" />
+</head>
+<body>
+<div class="main">
+
+    <h1 class="title">Costumers</h1>
+
+    <form th:action="@{/patrons}" method="get" class="patronsForm">
+        <div>
+            <label for="name">Search by Name:</label>
+            <input type="text" id="name" name="name" />
+        </div>
+
+        <div>
+            <label for="sort">Sort by:</label>
+            <select id="sort" name="sort">
+                <option value="name">Name</option>
+                <option value="surname">Surname</option>
+            </select>
+        </div>
+
+        <button type="submit">Search</button>
+    </form>
+
+    <table class="patronsTable">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Phone Number</th>
+            <th style="width: 150%">Email</th>
+            <th>Status</th>
+            <th>Actions</th>
+            <th style="width: 120%">View</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="patron : ${patrons}">
+            <td th:text="${patron.id}"></td>
+            <td th:text="${patron.name}"></td>
+            <td th:text="${patron.surname}"></td>
+            <td th:text="${patron.phoneNumber}"></td>
+            <td style="width: 150%" th:text="${patron.email}"></td>
+            <td th:text="${patron.membershipStatus}"></td>
+
+            <td>
+                <form th:action="@{'/patron/edit/' + ${patron.id}}" method="get">
+                    <button type="submit">Edit</button>
+                </form>
+            </td>
+            <td style="width: 120%">
+                <form
+                        th:action="@{'/patron/delete/' + ${patron.id}}"
+                        method="post"
+                >
+                    <button type="submit">Delete</button>
+                </form>
+
+                <form
+                        th:action="@{'/patron/' + ${patron.id} + '/books'}"
+                        method="get"
+                >
+                    <button type="submit">View</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div>
+        <a class="actionButton" href="/patron/create">Add Patron</a>
+        <a class="actionButton" href="/">Main menu</a>
+    </div>
+</div>
+</body>
+</html>

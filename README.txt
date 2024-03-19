@@ -1,0 +1,2 @@
+To launch the application, you must specify the username and password of the datasource in the application.properties file.
+Turn on MySQL server and run the application using the LibraryApplication class. The user generated for authorization will have the username admin and password admin.

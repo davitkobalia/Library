@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Add Patron</title>
+    <link rel="stylesheet" type="text/css" href="../../static/main.css" />
+</head>
+<body>
+<div class="main">
+    <h1 class="title">Patron add Form</h1>
+
+    <form
+            th:action="@{/patron/create}"
+            method="post"
+            th:object="${patron}"
+            class="patronsCreateForm"
+    >
+        <div>
+            <label for="name">Name:</label>
+            <input type="text" id="name" th:field="*{name}" required />
+        </div>
+
+        <div>
+            <label for="surname">Surname:</label>
+            <input type="text" id="surname" th:field="*{surname}" required />
+        </div>
+
+        <div>
+            <label for="phoneNumber">Number:</label>
+            <input
+                    type="text"
+                    id="phoneNumber"
+                    th:field="*{phoneNumber}"
+                    required
+            />
+        </div>
+
+        <div>
+            <label for="email">Email:</label>
+            <input type="text" id="email" th:field="*{email}" required />
+        </div>
+
+        <div>
+            <label for="status">Membership:</label>
+            <select id="status" name="status" th:field="*{membershipStatus}">
+                <option value="true">true</option>
+                <option value="false">false</option>
+            </select>
+        </div>
+
+        <div>
+            <button type="submit">Add Patron</button>
+        </div>
+    </form>
+
+    <div>
+        <a class="actionButton" href="/patrons">Back</a>
+    </div>
+</div>
+</body>
+</html>

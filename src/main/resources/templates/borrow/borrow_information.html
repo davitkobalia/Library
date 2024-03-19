@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Loan Information</title>
+    <link rel="stylesheet" type="text/css" href="../../static/main.css" />
+</head>
+<body>
+<div class="main">
+    <h1 class="title">Loan Information</h1>
+
+    <table th:class="borrowInfoTable">
+        <thead>
+        <tr>
+            <th>Patron Name</th>
+            <th>Book Title</th>
+            <th>Loan Date</th>
+            <th>Return Date</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="loan : ${loans}">
+            <td th:text="${loan.patron.name}"></td>
+            <td th:text="${loan.book.title}"></td>
+            <td th:text="${loan.loanDate}"></td>
+            <td th:text="${loan.returnDate}"></td>
+            <td>
+                <form
+                        th:action="@{/return/{loanId}(loanId=${loan.id})}"
+                        method="post"
+                >
+                    <button type="submit">Return</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <a class="actionButton" href="/books">Back</a>
+</div>
+</body>
+</html>

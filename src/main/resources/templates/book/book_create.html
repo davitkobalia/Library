@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Main menu</title>
+    <link rel="stylesheet" th:href="@{/static/main.css}" />
+</head>
+<body>
+<div class="main">
+    <h1>Book creating form</h1>
+
+    <form
+            th:action="@{/allBook/book/create}"
+            method="post"
+            th:object="${book}"
+            class="bookCreateForm"
+    >
+        <div>
+            <label for="author">Author:</label>
+            <input type="text" id="author" th:field="*{author}" required />
+        </div>
+
+        <div>
+            <label for="title">Title:</label>
+            <input type="text" id="title" th:field="*{title}" required />
+        </div>
+
+        <div>
+            <label for="genre">Genre:</label>
+            <input type="text" id="genre" th:field="*{genre}" required />
+        </div>
+
+        <div>
+            <label for="isbn">ISBN:</label>
+            <input type="text" id="isbn" th:field="*{ISBN}" required />
+        </div>
+
+        <div>
+            <button type="submit">Create book</button>
+        </div>
+    </form>
+    <a class="actionButton" href="/allBook">Back</a>
+</div>
+</body>
+</html>

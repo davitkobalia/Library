@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" type="text/css" href="../../static/main.css" />
+<head>
+  <meta charset="UTF-8" />
+  <title>Items</title>
+</head>
+<body>
+<div class="main">
+
+  <h1 class="title">History Log</h1>
+
+  <table class="transactionTable">
+    <thead>
+    <tr>
+      <th>Transaction history</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="transaction : ${transactionList}">
+      <td th:if="${transaction.transactionType == 'return'}">
+        <span>
+          <span th:text="' ' + ${transaction.name} + ' ' + ${transaction.surname} + ' '" ></span>
+          <span style="color: green ; font-weight: bolder ; font-size: 18px ;"  >returned</span>
+          <span th:text="' ' + ${transaction.title} + '(' + ${transaction.author} + ')'"></span>
+        </span>
+      </td>
+      <td th:if="${transaction.transactionType == 'borrow'}">
+        <span>
+          <span th:text="' ' + ${transaction.name} + ' ' + ${transaction.surname} + ' '" ></span>
+          <span style="color: red ; font-weight: bolder ; font-size: 18px ;"  >borrowed</span>
+          <span th:text="' ' + ${transaction.title} + '(' + ${transaction.author} + ')'"></span>
+        </span>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <a class="actionButton" href="/">Main menu</a>
+</div>
+</body>
+</html>

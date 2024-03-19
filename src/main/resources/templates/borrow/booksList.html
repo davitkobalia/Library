@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>BookList</title>
+    <link rel="stylesheet" type="text/css" href="../../static/main.css" />
+</head>
+<body>
+<div class="main">
+
+    <h1 class="title">Books</h1>
+
+    <form th:action="@{/books}" method="get" class="booksListForm">
+        <div>
+            <label for="author">Search by Author:</label>
+            <input type="text" id="author" name="author" />
+        </div>
+
+        <div>
+            <label for="title">Search by Title:</label>
+            <input type="text" id="title" name="title" />
+        </div>
+
+        <div>
+            <label for="sort">Sort by:</label>
+            <select id="sort" name="sort">
+                <option value="title">Title</option>
+                <option value="author">Author</option>
+            </select>
+        </div>
+
+        <div>
+            <button type="submit">Search</button>
+        </div>
+    </form>
+
+    <table class="booksListTable">
+        <thead>
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Genre</th>
+            <th>ISBN</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="book : ${books}">
+            <td th:text="${book.title}"></td>
+            <td th:text="${book.author}"></td>
+            <td th:text="${book.genre}"></td>
+            <td th:text="${book.ISBN}"></td>
+            <td>
+                <form th:action="@{/showPatrons}" method="get">
+                    <input type="hidden" name="bookId" th:value="${book.id}" />
+                    <button type="submit">Borrow</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div>
+        <a class="actionButton" href="/allBook">Edit Books</a>
+        <a class="actionButton" href="/borrow-information">Borrowed Books</a>
+        <a class="actionButton" href="/">Main Menu</a>
+    </div>
+</div>
+</body>
+</html>

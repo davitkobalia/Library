@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html
+        lang="en"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+>
+<head>
+    <meta charset="UTF-8" />
+    <title>Main menu</title>
+    <link rel="stylesheet" th:href="@{static/main.css}" />
+</head>
+<body>
+<div class="main">
+    <div class="logOut">
+        <a class="logOutBtn" href="/logout">Logout</a>
+    </div>
+    <div class="allPlites">
+        <a class="plite overdue" href="/overdue-books"
+        ><span>Overdue Books</span>
+        </a>
+        <a class="plite patrons" href="/patrons"><span>Customers List</span></a>
+        <a class="plite books" href="/books"><span>Books</span> </a>
+        <a class="plite history" href="/transaction-history"
+        ><span>Transaction History</span>
+        </a>
+        <a
+                class="plite users"
+                sec:authorize="hasAuthority('ADMIN')"
+                href="/admin/users"
+        ><span>Users</span>
+        </a>
+    </div>
+</div>
+</body>
+</html>

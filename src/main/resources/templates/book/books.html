@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Edit Books</title>
+    <link rel="stylesheet" type="text/css" href="../../static/main.css" />
+</head>
+<body>
+<div class="main">
+    <form th:action="@{/allBook}" method="get" class="allBooksForm">
+        <div>
+            <label for="author">Search by Author:</label>
+            <input type="text" id="author" name="author" />
+        </div>
+
+        <div>
+            <label for="title">Search by Title:</label>
+            <input type="text" id="title" name="title" />
+        </div>
+
+        <div>
+            <label for="sort">Sort by:</label>
+            <select id="sort" name="sort">
+                <option value="title">Title</option>
+                <option value="author">Author</option>
+            </select>
+        </div>
+        <div>
+            <button type="submit">Search</button>
+        </div>
+    </form>
+
+    <table id="booksTable" class="allBooksTable">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Genre</th>
+            <th>ISBN</th>
+            <th style="width: 120%">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="book : ${books}">
+            <td th:text="${book.id}"></td>
+            <td th:text="${book.title}"></td>
+            <td th:text="${book.author}"></td>
+            <td th:text="${book.genre}"></td>
+            <td th:text="${book.ISBN}"></td>
+            <td style="width: 120%">
+                <form
+                        th:action="@{'/allBook/book/edit/' + ${book.id}}"
+                        method="get"
+                >
+                    <button type="submit">Edit</button>
+                </form>
+                <form
+                        th:action="@{'/allBook/book/delete/' + ${book.id}}"
+                        method="post"
+                >
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div>
+        <a class="actionButton" href="/allBook/book/create">Add Book</a>
+        <a class="actionButton" href="/books">Back</a>
+    </div>
+</div>
+</body>
+</html>

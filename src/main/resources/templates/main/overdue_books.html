@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <title>Overdue Books</title>
+  <link rel="stylesheet" th:href="@{static/main.css}" />
+</head>
+<body>
+<div class="main">
+  <h1 class="title">Overdue Books</h1>
+
+  <table class="overdueBooksTable">
+    <thead>
+    <tr>
+      <th>Title</th>
+      <th>Author</th>
+      <th>Genre</th>
+      <th>ISBN</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="book : ${overdueBooks}">
+      <td th:text="${book.title}"></td>
+      <td th:text="${book.author}"></td>
+      <td th:text="${book.genre}"></td>
+      <td th:text="${book.ISBN}"></td>
+      <td>
+        <form th:action="@{'patron/return/' + ${book.id}}" method="post">
+          <button type="submit">Return</button>
+        </form>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <a href="/" class="actionButton">Main menu</a>
+</div>
+</body>
+</html>

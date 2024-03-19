@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Patron list</title>
+    <link rel="stylesheet" type="text/css" href="../../static/main.css" />
+</head>
+
+<body>
+<div th:class="main">
+    <form th:action="@{/showPatrons}" method="get" class="showBorrowForm">
+        <div>
+            <label for="name">Search by Name:</label>
+            <input type="text" id="name" name="name" />
+        </div>
+        <div>
+            <label for="sort">Sort by:</label>
+            <select id="sort" name="sort">
+                <option value="name">Name</option>
+                <option value="surname">Surname</option>
+            </select>
+        </div>
+        <div>
+            <button type="submit">Search</button>
+        </div>
+    </form>
+
+    <table class="showBorrowTable">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Phone Number</th>
+            <th>Email</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="patron : ${patrons}">
+            <td th:text="${patron.name}"></td>
+            <td th:text="${patron.surname}"></td>
+            <td th:text="${patron.phoneNumber}"></td>
+            <td th:text="${patron.email}"></td>
+            <td th:text="${patron.membershipStatus}"></td>
+
+            <td>
+                <form th:action="@{/borrow-book}" method="post">
+                    <input type="hidden" name="patronId" th:value="${patron.id}" />
+                    <input type="hidden" name="bookId" th:value="${bookId}" />
+                    <button type="submit">Borrow</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

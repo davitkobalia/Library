@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Books taken by Patron</title>
+    <link rel="stylesheet" type="text/css" href="../../static/main.css" />
+</head>
+<body>
+<div class="main">
+    <h1 class="title">Books taken by Patron</h1>
+
+    <table class="patronsBooksTable">
+        <thead>
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Genre</th>
+            <th>ISBN</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="book : ${patronBooks}">
+            <td th:text="${book.title}"></td>
+            <td th:text="${book.author}"></td>
+            <td th:text="${book.genre}"></td>
+            <td th:text="${book.ISBN}"></td>
+            <td>
+                <form th:action="@{'/patron/return/' + ${book.id}}" method="post">
+                    <button type="submit">Return</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <a class="actionButton" href="/patrons">Back</a>
+</div>
+</body>
+</html>

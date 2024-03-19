@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Patron edit</title>
+    <link rel="stylesheet" type="text/css" href="../../static/main.css" />
+</head>
+<body>
+<div class="main">
+    <h1 class="title">Patron edit Form</h1>
+
+    <form
+            th:action="@{'/patron/edit/' + ${patron.id}}"
+            method="post"
+            th:object="${patron}"
+            class="patronsCreateForm"
+    >
+        <div>
+            <input type="text" th:field="*{name}" required />
+        </div>
+
+        <div>
+            <input type="text" th:field="*{surname}" required />
+        </div>
+
+        <div>
+            <input type="text" th:field="*{phoneNumber}" required />
+        </div>
+
+        <div>
+            <input type="text" th:field="*{email}" required />
+        </div>
+
+        <div>
+            <select id="status" name="status" th:field="*{membershipStatus}">
+                <option th:value="true" th:selected="${patron.membershipStatus}">
+                    true
+                </option>
+                <option th:value="false" th:selected="${!patron.membershipStatus}">
+                    false
+                </option>
+            </select>
+        </div>
+
+        <div>
+            <button type="submit">Save changes</button>
+        </div>
+    </form>
+
+    <a class="actionButton" href="/patrons">Back</a>
+</div>
+</body>
+</html>
