@@ -9,6 +9,7 @@
 <body>
 <div th:class="main">
     <form th:action="@{/showPatrons}" method="get" class="showBorrowForm">
+        <input type="hidden" name="bookId" th:value="${bookId}" />
         <div>
             <label for="name">Search by Name:</label>
             <input type="text" id="name" name="name" />
@@ -45,7 +46,7 @@
             <td th:text="${patron.membershipStatus}"></td>
 
             <td>
-                <form th:action="@{/borrow-book}" method="post">
+                <form th:action="@{/loan}" method="post">
                     <input type="hidden" name="patronId" th:value="${patron.id}" />
                     <input type="hidden" name="bookId" th:value="${bookId}" />
                     <button type="submit">Borrow</button>

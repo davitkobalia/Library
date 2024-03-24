@@ -50,14 +50,14 @@
             <td th:text="${patron.membershipStatus}"></td>
 
             <td>
-                <form th:action="@{'/patron/edit/' + ${patron.id}}" method="get">
+                <form th:action="@{'/patron/' + ${patron.id} + '/edit'}" method="get">
                     <button type="submit">Edit</button>
                 </form>
             </td>
             <td style="width: 120%">
                 <form
-                        th:action="@{'/patron/delete/' + ${patron.id}}"
-                        method="post"
+                        th:action="@{'/patron/' + ${patron.id}}"
+                        th:method="DELETE"
                 >
                     <button type="submit">Delete</button>
                 </form>

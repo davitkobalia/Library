@@ -27,8 +27,8 @@
       <td th:text="${user.role}">Role</td>
       <td>
         <form
-                th:action="@{'/admin/user/delete/' + ${user.id}}"
-                method="post"
+                th:action="@{'/admin/' + ${user.id}}"
+                th:method="delete"
         >
           <button type="submit">Delete</button>
         </form>
@@ -38,7 +38,7 @@
   </table>
 
   <div>
-    <a class="actionButton" href="/admin/newUser">Add User</a>
+    <a class="actionButton" href="/admin/users/create">Add User</a>
     <a class="actionButton" href="/">Main menu</a>
   </div>
 </div>

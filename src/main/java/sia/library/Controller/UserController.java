@@ -4,10 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import sia.library.Security.User;
 import sia.library.Service.UserService;
 
@@ -23,14 +20,14 @@ public class UserController {
         this.passwordEncoder = passwordEncoder;
     }
 
-    @GetMapping("/admin/newUser")
+    @GetMapping("/admin/users/create")
     public String newUserForm(Model model) {
         model.addAttribute("user", new User());
         model.addAttribute("roles", userService.getAllRoles());
         return "user/create-user";
     }
 
-    @PostMapping("/admin/save")
+    @PostMapping("/admin/users")
     public String saveUser(@ModelAttribute User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
@@ -44,7 +41,7 @@ public class UserController {
     }
 
 
-    @PostMapping("/admin/user/delete/{id}")
+    @DeleteMapping("/admin/{id}")
     public String deleteUser(@PathVariable int id) {
         userService.deleteUser(id);
         return "redirect:/admin/users";

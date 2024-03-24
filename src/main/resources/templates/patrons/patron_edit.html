@@ -10,8 +10,8 @@
     <h1 class="title">Patron edit Form</h1>
 
     <form
-            th:action="@{'/patron/edit/' + ${patron.id}}"
-            method="post"
+            th:action="@{'/patron/' + ${patron.id}}"
+            th:method="PATCH"
             th:object="${patron}"
             class="patronsCreateForm"
     >

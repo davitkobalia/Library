@@ -19,8 +19,6 @@ import java.util.List;
 
 @Controller
 public class LoanController {
-    List<String> transactionHistory = new ArrayList<>();
-
     private final LoanService loanService;
     private final BookService bookService;
     private final PatronService patronService;
@@ -34,7 +32,7 @@ public class LoanController {
         this.transactionsService = transactionsService;
     }
 
-    @GetMapping("/books")
+    @GetMapping("/loan")
     public String books(@RequestParam(name = "title", required = false) String title,
                         @RequestParam(name = "author", required = false) String author,
                         @RequestParam(name = "sort", required = false, defaultValue = "title") String sort,
@@ -53,8 +51,8 @@ public class LoanController {
         return "borrow/showPatrons";
     }
 
-    @PostMapping("/borrow-book")
-    public String loanBook(@RequestParam(name = "patronId") int patronId,
+    @PostMapping("/loan")
+    public String borrowBook(@RequestParam(name = "patronId") int patronId,
                            @RequestParam(name = "bookId") int bookId) {
         Patron patron = patronService.getPatronById(patronId);
         Book book = bookService.getBookById(bookId);
@@ -64,17 +62,17 @@ public class LoanController {
                                                book.getTitle(),book.getAuthor(),"borrow"));
 
         }
-
         return "redirect:/borrow-information";
-
     }
+
+
     @GetMapping("/borrow-information")
     public String showLoanInformation(Model model) {
         List<Loan> loans = loanService.getAllLoans();
         model.addAttribute("loans", loans);
         return "borrow/borrow_information";
     }
-    @PostMapping("/return/{loanId}")
+    @DeleteMapping("/loan/{loanId}")
     public String returnBook(@PathVariable int loanId) {
         Loan loan = loanService.getById(loanId);
         if (loan != null) {
@@ -84,18 +82,5 @@ public class LoanController {
         }
 
         return "redirect:/borrow-information";
-}
-    @GetMapping("/overdue-books")
-    public String getOverdueBooks(Model model) {
-        List<Book> overdueBooks = loanService.getOverdueBooks();
-        model.addAttribute("overdueBooks", overdueBooks);
-        return "main/overdue_books";
-    }
-    @GetMapping("/transaction-history")
-    public  String getTransactionHistory(Model model){
-        List<Transaction> transactionList = transactionsService.listTransactions();
-        Collections.reverse(transactionList);
-        model.addAttribute("transactionList",transactionList);
-        return "main/transaction_history";
     }
 }

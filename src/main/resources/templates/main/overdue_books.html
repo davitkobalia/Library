@@ -12,22 +12,25 @@
   <table class="overdueBooksTable">
     <thead>
     <tr>
+      <th>Name</th>
+      <th>Surname</th>
       <th>Title</th>
       <th>Author</th>
-      <th>Genre</th>
-      <th>ISBN</th>
+      <th>Return day</th>
       <th>Actions</th>
     </tr>
     </thead>
 
     <tbody>
-    <tr th:each="book : ${overdueBooks}">
-      <td th:text="${book.title}"></td>
-      <td th:text="${book.author}"></td>
-      <td th:text="${book.genre}"></td>
-      <td th:text="${book.ISBN}"></td>
+    <tr th:each="loan : ${overdueBooks}">
+      <td th:text="${loan.patron.name}"></td>
+      <td th:text="${loan.patron.surname}"></td>
+      <td th:text="${loan.book.title}"></td>
+      <td th:text="${loan.book.author}"></td>
+      <td th:text="${loan.getReturnDate()}"></td>
       <td>
-        <form th:action="@{'patron/return/' + ${book.id}}" method="post">
+        <form th:action="@{/loan/{loanId}(loanId=${loan.id})}"
+              th:method="delete">
           <button type="submit">Return</button>
         </form>
       </td>

@@ -2,38 +2,40 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" />
-    <title>Books taken by Patron</title>
+    <title>Loan Information</title>
     <link rel="stylesheet" type="text/css" href="../../static/main.css" />
 </head>
 <body>
 <div class="main">
-    <h1 class="title">Books taken by Patron</h1>
+    <h1 class="title">Loan Information</h1>
 
-    <table class="patronsBooksTable">
+    <table th:class="borrowInfoTable">
         <thead>
         <tr>
-            <th>Title</th>
-            <th>Author</th>
-            <th>Genre</th>
-            <th>ISBN</th>
-            <th>Actions</th>
+            <th>Patron Name</th>
+            <th>Book Title</th>
+            <th>Loan Date</th>
+            <th>Return Date</th>
+            <th>Action</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="book : ${patronBooks}">
-            <td th:text="${book.title}"></td>
-            <td th:text="${book.author}"></td>
-            <td th:text="${book.genre}"></td>
-            <td th:text="${book.ISBN}"></td>
+        <tr th:each="loan : ${patronLoans}">
+            <td th:text="${loan.patron.name}"></td>
+            <td th:text="${loan.book.title}"></td>
+            <td th:text="${loan.loanDate}"></td>
+            <td th:text="${loan.returnDate}"></td>
             <td>
-                <form th:action="@{'/patron/return/' + ${book.id}}" method="post">
+                <form
+                        th:action="@{/loan/{loanId}(loanId=${loan.id})}"
+                        th:method="delete"
+                >
                     <button type="submit">Return</button>
                 </form>
             </td>
         </tr>
         </tbody>
     </table>
-
     <a class="actionButton" href="/patrons">Back</a>
 </div>
 </body>

@@ -33,13 +33,13 @@ public class PatronController {
         model.addAttribute("patron",new Patron());
         return "patrons/patron_create";
     }
-    @PostMapping("/patron/create")
+    @PostMapping("/patron")
     public String savePatron(Patron patron){
         patronService.savePatron(patron);
         return "redirect:/patrons";
     }
 
-    @GetMapping("/patron/edit/{id}")
+    @GetMapping("/patron/{id}/edit")
     public String showPatronEditForm(@PathVariable int id,Model model){
         Patron patron = patronService.getPatronById(id);
 
@@ -50,7 +50,7 @@ public class PatronController {
         return "patrons/patron_edit";
     }
 
-    @PostMapping("/patron/edit/{id}")
+    @PatchMapping("/patron/{id}")
     public String updatePatronInfo(@PathVariable int id,@ModelAttribute Patron patron){
         patron.setId(id);
 
@@ -59,23 +59,15 @@ public class PatronController {
         return "redirect:/patrons";
 
     }
-    @PostMapping("/patron/delete/{id}")
+    @DeleteMapping("/patron/{id}")
     public String deletePatron(@PathVariable int id) {
         patronService.deletePatron(id);
         return "redirect:/patrons";
     }
     @GetMapping("/patron/{patronId}/books")
     public String getPatronBooks(@PathVariable int patronId, Model model) {
-        List<Book> patronBooks = loanService.getPatronBooks(patronId);
-        model.addAttribute("patronBooks", patronBooks);
+        List<Loan> patronLoans = loanService.getPatronBooks(patronId);
+        model.addAttribute("patronLoans", patronLoans);
         return "patrons/patron_books";
     }
-    @PostMapping("patron/return/{id}")
-    public String returnPatronsBook(@PathVariable int id){
-        Loan loan = loanService.getLoanByBookId(id);
-        loanService.returnBook(loan);
-        return "redirect:/patron/" + loan.getPatron().getId() + "/books";
-
-    }
-
 }

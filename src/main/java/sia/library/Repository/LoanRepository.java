@@ -13,10 +13,11 @@ import java.util.List;
 public interface LoanRepository extends JpaRepository<Loan,Integer> {
     Loan findByPatronAndBook(Patron patron, Book book);
     Loan findById(int id);
-    @Query("SELECT l.book FROM Loan l WHERE l.patron.id = :patronId")
-    List<Book> findBooksByPatronId(@Param("patronId") int patronId);
+    @Query("SELECT l FROM Loan l WHERE l.patron.id = :patronId")
+    List<Loan> findLoansByPatronId(@Param("patronId") int patronId);
 
     Loan findByBook_Id(int id);
 
     List<Loan> findByReturnDateBefore(LocalDate date);
+
 }

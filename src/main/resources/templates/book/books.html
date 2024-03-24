@@ -7,7 +7,7 @@
 </head>
 <body>
 <div class="main">
-    <form th:action="@{/allBook}" method="get" class="allBooksForm">
+    <form th:action="@{/book}" method="get" class="allBooksForm">
         <div>
             <label for="author">Search by Author:</label>
             <input type="text" id="author" name="author" />
@@ -50,14 +50,14 @@
             <td th:text="${book.ISBN}"></td>
             <td style="width: 120%">
                 <form
-                        th:action="@{'/allBook/book/edit/' + ${book.id}}"
+                        th:action="@{'/book/' + ${book.id} + '/edit'}"
                         method="get"
                 >
                     <button type="submit">Edit</button>
                 </form>
                 <form
-                        th:action="@{'/allBook/book/delete/' + ${book.id}}"
-                        method="post"
+                        th:action="@{'/book/' + ${book.id}}"
+                        th:method="delete"
                 >
                     <button type="submit">Delete</button>
                 </form>
@@ -67,8 +67,8 @@
     </table>
 
     <div>
-        <a class="actionButton" href="/allBook/book/create">Add Book</a>
-        <a class="actionButton" href="/books">Back</a>
+        <a class="actionButton" href="/book/create">Add Book</a>
+        <a class="actionButton" href="/loan">Back</a>
     </div>
 </div>
 </body>

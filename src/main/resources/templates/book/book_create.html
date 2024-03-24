@@ -10,7 +10,7 @@
     <h1>Book creating form</h1>
 
     <form
-            th:action="@{/allBook/book/create}"
+            th:action="@{/book}"
             method="post"
             th:object="${book}"
             class="bookCreateForm"
@@ -39,7 +39,7 @@
             <button type="submit">Create book</button>
         </div>
     </form>
-    <a class="actionButton" href="/allBook">Back</a>
+    <a class="actionButton" href="/book">Back</a>
 </div>
 </body>
 </html>

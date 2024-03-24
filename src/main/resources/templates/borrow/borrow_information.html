@@ -27,8 +27,8 @@
             <td th:text="${loan.returnDate}"></td>
             <td>
                 <form
-                        th:action="@{/return/{loanId}(loanId=${loan.id})}"
-                        method="post"
+                        th:action="@{/loan/{loanId}(loanId=${loan.id})}"
+                        th:method="delete"
                 >
                     <button type="submit">Return</button>
                 </form>
@@ -36,7 +36,7 @@
         </tr>
         </tbody>
     </table>
-    <a class="actionButton" href="/books">Back</a>
+    <a class="actionButton" href="/loan">Back</a>
 </div>
 </body>
 </html>

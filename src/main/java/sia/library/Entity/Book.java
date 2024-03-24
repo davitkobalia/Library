@@ -1,6 +1,10 @@
 package sia.library.Entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,10 +23,11 @@ public class Book {
     private int id;
 
     @Column(name = "title")
+
     private String title;
     @Column(name = "author")
     private String author;
-    @Column(name="isbn")
+    @Column(name = "isbn")
     private String ISBN;
     @Column(name = "genre")
     private String genre;

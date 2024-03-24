@@ -10,7 +10,7 @@
 
     <h1 class="title">Books</h1>
 
-    <form th:action="@{/books}" method="get" class="booksListForm">
+    <form th:action="@{/loan}" method="get" class="booksListForm">
         <div>
             <label for="author">Search by Author:</label>
             <input type="text" id="author" name="author" />
@@ -61,7 +61,7 @@
     </table>
 
     <div>
-        <a class="actionButton" href="/allBook">Edit Books</a>
+        <a class="actionButton" href="/book">Edit Books</a>
         <a class="actionButton" href="/borrow-information">Borrowed Books</a>
         <a class="actionButton" href="/">Main Menu</a>
     </div>

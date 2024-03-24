@@ -1,7 +1,9 @@
 package sia.library.Controller;
 
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import sia.library.Entity.Book;
 import sia.library.Entity.Loan;
@@ -17,7 +19,7 @@ public class BookController {
         this.loanService = loanService;
     }
 
-    @GetMapping("/allBook")
+    @GetMapping("/book")
     public String books(@RequestParam(name = "title", required = false) String title,
                         @RequestParam(name = "author",required = false) String author,
                         @RequestParam(name = "sort", required = false, defaultValue = "title") String sort,
@@ -26,43 +28,44 @@ public class BookController {
         return "book/books";
     }
 
-    @GetMapping("/allBook/book/create")
+    @GetMapping("/book/create")
     public String createBookForm(Model model) {
         model.addAttribute("book", new Book());
         return "book/book_create";
     }
 
-        @PostMapping("/allBook/book/create")
-    public String createBook(Book book) {
+        @PostMapping("/book")
+        public String createBook(Book book, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()) return "book/book_create";
         book.setReserved(false);
         bookService.saveBook(book);
-        return "redirect:/allBook";
+        return "redirect:/book";
     }
 
-    @GetMapping("/allBook/book/edit/{id}")
+    @GetMapping("/book/{id}/edit")
     public String showEditForm(@PathVariable int id, Model model) {
         Book book = bookService.getBookById(id);
         if (book == null) {
-            return "redirect:/allBook";
+            return "redirect:/book";
         }
         model.addAttribute("book", book);
         return "book/book_edit";
     }
 
 
-    @PostMapping("/allBook/book/edit/{id}")
-    public String updateBook(@PathVariable int id, @ModelAttribute Book updatedBook) {
+    @PatchMapping("/book/{id}")
+    public String updateBook(@PathVariable int id,@ModelAttribute Book updatedBook,BindingResult bindingResult) {
         updatedBook.setId(id);
         bookService.saveBook(updatedBook);
-        return "redirect:/allBook";
+        return "redirect:/book";
     }
 
-    @PostMapping("/allBook/book/delete/{id}")
+    @DeleteMapping("/book/{id}")
     public String deleteBook(@PathVariable int id) {
         Loan loan =loanService.getLoanByBookId(id);
         if(loan != null) loanService.returnBook(loan);
        bookService.deleteBook(id);
-        return "redirect:/allBook";
+        return "redirect:/book";
     }
 
 

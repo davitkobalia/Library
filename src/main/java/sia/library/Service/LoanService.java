@@ -62,8 +62,8 @@ public class LoanService {
         loanRepository.deleteById(loan.getId());
     }
 
-    public List<Book> getPatronBooks(int patronId) {
-        return loanRepository.findBooksByPatronId(patronId);
+    public List<Loan> getPatronBooks(int patronId) {
+        return loanRepository.findLoansByPatronId(patronId);
     }
 
     public Loan getById(int id) {
@@ -74,13 +74,8 @@ public class LoanService {
         return loanRepository.findByBook_Id(id);
     }
 
-    public List<Book> getOverdueBooks() {
-        List<Loan> overdueLoans = loanRepository.findByReturnDateBefore(LocalDate.now());
-        List<Book> overdueBooks = new ArrayList<>();
-        for (Loan loan : overdueLoans) {
-            overdueBooks.add(loan.getBook());
-        }
-        return overdueBooks;
+    public List<Loan> getOverdueBooks() {
+        return loanRepository.findByReturnDateBefore(LocalDate.now());
     }
 }
 
