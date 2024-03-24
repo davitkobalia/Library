@@ -60,7 +60,6 @@ public class LoanController {
             loanService.takeBook(patron, book);
             transactionsService.addTransaction(new Transaction(patron.getName(),patron.getSurname(),
                                                book.getTitle(),book.getAuthor(),"borrow"));
-
         }
         return "redirect:/borrow-information";
     }
@@ -80,7 +79,6 @@ public class LoanController {
             transactionsService.addTransaction(new Transaction(loan.getPatron().getName(),loan.getPatron().getSurname(),
                                                                loan.getBook().getTitle(),loan.getBook().getAuthor(),"return"));
         }
-
         return "redirect:/borrow-information";
     }
 }
